@@ -4,11 +4,13 @@ import repositories from "../data/respoitories.js"
 import RepositoryItem from "./RepositoryItem.jsx";
 
 const RepositoriesList = () => {
+
+    
     return(
         <FlatList
         data={repositories}
         ItemSeparatorComponent={() => <Text> </Text>}
-        renderItem={({repo}) =>(
+        renderItem={({item: repo}) =>(
             <RepositoryItem {...repo}/>
             )}/>   
     )

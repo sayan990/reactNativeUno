@@ -1,41 +1,52 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import StyledText from "./StyledText"
+import { View, Text, StyleSheet, Image } from "react-native";
+import StyledText from "./StyledText";
+import RepositoryStats from "./RepositoryStats";
+import theme from "../theme";
 
-const RepositoryStats = props =>{
-    return(
-        <View style={{flexDirection:"row", justifyContent: "space-around"}}>
-            <View>
-                <StyledText fontWeight="bold" >Stars:</StyledText>
-                <StyledText >{prop.stargazersCount}</StyledText>
-            </View>
-            <View>
-                <StyledText fontWeight="bold">Forks:</StyledText>
-                <StyledText >{prop.forksCount}</StyledText>
-            </View>
-            <View>
-                <StyledText fontWeight="bold">Review:</StyledText>
-                <StyledText >{prop.reviewCount}</StyledText>
-            </View>
-            <View>
-                <StyledText fontWeight="bold">Rating:</StyledText>
-                <StyledText >{prop.ratingAverage}</StyledText>
-            </View>
-        
-        
-        
-        
-        </View>
-    )
-}
+const RepositoryItemHeader = (prop) => (
+  <View style={{ flexDirection: "row", paddingBottom: 2 }}>
+    <View style={{ paddingRight: 10 }}>
+      <Image style={styles.image} source={{ uri: prop.ownerAvatarUrl }} />
+    </View>
+    <View style={{ flex: 1 }}>
+      <StyledText fontSize="subheading" fontWeight="bold">
+         {prop.fullName}
+      </StyledText>
+      <StyledText color="secondary"> {prop.description}</StyledText>
+      <StyledText style={styles.language}>{prop.language}</StyledText>
+    </View>
+  </View>
+);
 
 const RepositoryItem = (prop) => (
-    <View key={prop.id} style={styles.container}>
-        <StyledText fontSize="subheading" fontWeight="bold">id: {prop.fullName}</StyledText>
-        <StyledText >fullname: {prop.description}</StyledText>
-        <StyledText >Lenguaje:{prop.language}</StyledText>
-        <RepositoryStats {...props}/>
-    </View>
-)
+  <View key={prop.id} style={styles.container}>
+    <RepositoryItemHeader {...prop} />
+    <RepositoryStats {...prop} />
+  </View>
+);
 
-export default RepositoryItem
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    paddingBottom: 5,
+    paddingTop: 5,
+  },
+  language: {
+    padding: 4,
+    color: theme.colors.white,
+    backgroundColor: theme.colors.primary,
+    alignSelf: "flex-start",
+    borderRadius: 4,
+    overflow: "hidden",
+    marginTop:4,
+    marginBottom:4,
+  },
+  image: {
+    width: 48,
+    height: 48,
+    borderRadius: 4,
+  },
+});
+
+export default RepositoryItem;
